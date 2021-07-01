@@ -27,10 +27,10 @@ router.post(
 
         const {email, password} = req.body
 
-        const candidate = await User.findOne({ email })
+        const candidate = await User.findOne({ email });
 
         if (candidate) {
-            return res.status(400).json({ message: 'Такой пользователь уже существует'})
+            return res.status(400).json({ message: 'Такой пользователь уже существует'});
         }
 
         const hashedPassword = await bcrypt.hash(password, 12);
@@ -54,7 +54,7 @@ router.post(
     ],
     async (req, res) => {
     try {
-        const errors = validationResult(req)
+        const errors = validationResult(req);
         
         if (!errors.isEmpty()) {
             return res.status(400).json({
@@ -71,7 +71,7 @@ router.post(
             return res.status(400).json({ message: 'Пользователь не найден' });
         }
 
-        const isMatch = await bcrypt.compare(password, user.password)
+        const isMatch = await bcrypt.compare(password, user.password);
 
         if (!isMatch) {
             return res.status(400).json({ message: 'Неверный пароль, попробуйте снова' });
@@ -90,4 +90,4 @@ router.post(
     }  
 });
 
-module.exports = router
+module.exports = router;
